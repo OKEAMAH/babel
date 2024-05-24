@@ -14,8 +14,8 @@
   },
   "main": "./lib/index.js",
   "dependencies": {
-    "@babel/helper-annotate-as-pure": "workspace:^",
-    "@babel/types": "workspace:^"
+    "@babel/helper-annotate-as-pure": "7.0.0",
+    "@babel/types": "7.0.0"
   },
   "devDependencies": {
     "@babel/core": "workspace:^",
