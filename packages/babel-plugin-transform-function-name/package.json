@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@babel/helper-compilation-targets": "workspace:^",
-    "@babel/helper-function-name": "workspace:^",
+    "@babel/helper-function-name": "7.0.0",
     "@babel/helper-plugin-utils": "workspace:^"
   },
   "peerDependencies": {
