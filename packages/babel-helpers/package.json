@@ -16,7 +16,6 @@
   "main": "./lib/index.js",
   "dependencies": {
     "@babel/template": "workspace:^",
-    "@babel/traverse": "workspace:^",
     "@babel/types": "workspace:^"
   },
   "devDependencies": {
@@ -47,7 +46,10 @@
     ]
   },
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
   "type": "commonjs"

@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "@jridgewell/trace-mapping": "^0.3.25",
-    "commander": "^4.0.1",
+    "commander": "^6.2.0",
     "convert-source-map": "^2.0.0",
     "fs-readdir-recursive": "^1.1.0",
     "glob": "1.1.0",
@@ -76,7 +76,10 @@
     ]
   },
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
   "type": "commonjs"

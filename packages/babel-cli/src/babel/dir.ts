@@ -119,9 +119,7 @@ export default async function ({
 
       const files = util.readdir(dirname, cliOptions.includeDotfiles);
       for (const filename of files) {
-        const src = path.join(dirname, filename);
-
-        const written = await handleFile(src, dirname);
+        const written = await handleFile(filename, dirname);
         if (written) count += 1;
       }
 
@@ -169,7 +167,6 @@ export default async function ({
     for (const filename of cliOptions.filenames) {
       // compiledFiles is just incremented without reading its value, so we
       // don't risk race conditions.
-      // eslint-disable-next-line require-atomic-updates
       compiledFiles += await handle(filename);
     }
 
