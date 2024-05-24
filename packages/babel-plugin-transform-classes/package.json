@@ -17,7 +17,7 @@
     "@babel/helper-annotate-as-pure": "workspace:^",
     "@babel/helper-compilation-targets": "workspace:^",
     "@babel/helper-environment-visitor": "workspace:^",
-    "@babel/helper-function-name": "workspace:^",
+    "@babel/helper-function-name": "7.0.0",
     "@babel/helper-plugin-utils": "workspace:^",
     "@babel/helper-replace-supers": "workspace:^",
     "@babel/helper-split-export-declaration": "workspace:^",
