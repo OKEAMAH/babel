@@ -4,11 +4,11 @@ const x = n => function () {
       {
         return "a";
       }
+      {}
       {
         "b";
       }
       ;
-
     case 1:
       {
         return "a";
@@ -17,11 +17,10 @@ const x = n => function () {
         "b";
       }
       ;
-
     case 2:
       return "a";
+      {}
       "b";
-
     case 3:
       "a";
       {
@@ -30,7 +29,6 @@ const x = n => function () {
       {
         "c";
       }
-
     case 4:
       {
         "a";
@@ -47,10 +45,12 @@ const x = n => function () {
         break;
         "f";
       }
-
     case 5:
       {
         return "a";
+      }
+      {
+        "b";
       }
       {
         break;

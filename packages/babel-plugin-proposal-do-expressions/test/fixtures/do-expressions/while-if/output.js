@@ -1,8 +1,5 @@
 let p;
-
-let a = function () {
-  var _ret;
-
+let a = function (_ret) {
   while (p = p.parentPath) {
     if (a) {
       _ret = 'a';
@@ -10,6 +7,5 @@ let a = function () {
       _ret = 'b';
     }
   }
-
   return _ret;
 }();

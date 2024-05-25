@@ -1,20 +1,17 @@
 foo.func1 = function () {
   if (cond1) {
-    for (;;) {
+    var _loop = function () {
       if (cond2) {
-        var _ret = function () {
-          function func2() {}
-
-          function func3() {}
-
-          func4(function () {
-            func2();
-          });
-          return "break";
-        }();
-
-        if (_ret === "break") break;
+        var func2 = function () {};
+        var func3 = function () {};
+        func4(function () {
+          func2();
+        });
+        return 1; // break
       }
+    };
+    for (;;) {
+      if (_loop()) break;
     }
   }
 };

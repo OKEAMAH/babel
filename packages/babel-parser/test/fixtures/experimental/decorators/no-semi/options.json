@@ -1,3 +1,4 @@
 {
-  "throws": "Decorators must not be followed by a semicolon (2:5)"
+  "plugins": ["decorators"],
+  "throws": "Decorators must not be followed by a semicolon. (2:5)"
 }

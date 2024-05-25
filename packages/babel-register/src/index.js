@@ -4,12 +4,18 @@
  * from a compiled Babel import.
  */
 
-exports = module.exports = function (...args) {
-  return register(...args);
-};
-exports.__esModule = true;
+if (USE_ESM) {
+  module.exports = require("./experimental-worker.js");
+} else if (process.env.BABEL_8_BREAKING) {
+  module.exports = require("./experimental-worker.js");
+} else {
+  exports = module.exports = function (...args) {
+    return register(...args);
+  };
+  exports.__esModule = true;
 
-const node = require("./node");
-const register = node.default;
+  const node = require("./nodeWrapper.js");
+  const register = node.default;
 
-Object.assign(exports, node);
+  Object.assign(exports, node);
+}

@@ -1,33 +1,42 @@
 "use strict";
 
-module.exports = {
-  parser: "babel-eslint",
-  extends: "eslint:recommended",
-  plugins: ["flowtype"],
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: "module",
+const globals = require("globals");
+const recommendedConfig = require("@eslint/js").configs.recommended;
+const babelParser = require("@babel/eslint-parser/experimental-worker");
+
+module.exports = [
+  recommendedConfig,
+  {
+    languageOptions: {
+      parser: babelParser,
+      parserOptions: {
+        sourceType: "module",
+        requireConfigFile: false,
+        babelOptions: {
+          babelrc: false,
+          configFile: false,
+          // Todo: Remove the parserOpts here after the proposal gets stage 4.
+          parserOpts: {
+            plugins: ["importAssertions"],
+          },
+        },
+      },
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+      },
+    },
+    rules: {
+      curly: ["error", "multi-line"],
+      eqeqeq: ["error", "smart"],
+      "linebreak-style": ["error", "unix"],
+      "no-case-declarations": "error",
+      "no-confusing-arrow": "error",
+      "no-empty": ["error", { allowEmptyCatch: true }],
+      "no-process-exit": "error",
+      "no-unused-vars": ["error", { caughtErrors: "none" }],
+      "no-var": "error",
+      "prefer-const": "error",
+    },
   },
-  globals: {
-    // Flow
-    Iterator: true,
-    $Keys: true,
-  },
-  env: {
-    node: true,
-    es2020: true,
-    browser: true,
-  },
-  rules: {
-    curly: ["error", "multi-line"],
-    "linebreak-style": ["error", "unix"],
-    "no-case-declarations": "error",
-    "no-confusing-arrow": "error",
-    "no-empty": ["error", { allowEmptyCatch: true }],
-    "no-process-exit": "error",
-    "no-var": "error",
-    "prefer-const": "error",
-    "flowtype/define-flow-type": "warn",
-    "flowtype/use-flow-type": "warn",
-  },
-};
+];

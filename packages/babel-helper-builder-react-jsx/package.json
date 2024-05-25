@@ -1,19 +1,54 @@
 {
   "name": "@babel/helper-builder-react-jsx",
-  "version": "7.10.1",
+  "version": "7.22.10",
   "description": "Helper function to build react jsx",
   "repository": {
     "type": "git",
     "url": "https://github.com/babel/babel.git",
     "directory": "packages/babel-helper-builder-react-jsx"
   },
+  "homepage": "https://babel.dev/docs/en/next/babel-helper-builder-react-jsx",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "dependencies": {
-    "@babel/helper-annotate-as-pure": "^7.10.1",
-    "@babel/types": "^7.10.1"
-  }
+    "@babel/helper-annotate-as-pure": "workspace:^",
+    "@babel/types": "workspace:^"
+  },
+  "devDependencies": {
+    "@babel/core": "workspace:^",
+    "@babel/traverse": "workspace:^"
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "author": "The Babel Team (https://babel.dev/team)",
+  "conditions": {
+    "BABEL_8_BREAKING": [
+      {
+        "engines": {
+          "node": "^18.20.0 || ^20.10.0 || >=21.0.0"
+        }
+      },
+      {
+        "exports": null
+      }
+    ],
+    "USE_ESM": [
+      {
+        "type": "module"
+      },
+      null
+    ]
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "type": "commonjs"
 }

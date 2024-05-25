@@ -1,6 +1,9 @@
-import generator from "../../babel-generator";
-import template from "../lib";
 import * as t from "@babel/types";
+
+import _generator from "../../babel-generator/lib/index.js";
+import _template from "../lib/index.js";
+const generator = _generator.default || _generator;
+const template = _template.default || _template;
 
 const comments = "// Sum two numbers\nconst add = (a, b) => a + b;";
 
@@ -21,11 +24,6 @@ describe("@babel/template", function () {
     const code = "const add = (a, b) => a + b;";
     const output = template(comments)();
     expect(generator(output).code).toBe(code);
-  });
-
-  it("should preserve comments with a flag", function () {
-    const output = template(comments, { preserveComments: true })();
-    expect(generator(output).code).toBe(comments);
   });
 
   it("should preserve comments with a flag", function () {
@@ -215,6 +213,50 @@ describe("@babel/template", function () {
       expect(result.test.left).toBe(value);
     });
 
+    it("should return assertions in ImportDeclaration when using .ast", () => {
+      const result = template.ast(
+        `import json from "./foo.json" assert { type: "json" };`,
+        {
+          plugins: ["importAssertions"],
+        },
+      );
+
+      expect(result.assertions[0].type).toBe("ImportAttribute");
+    });
+
+    it("should return assertions in ExportNamedDeclaration when using .ast", () => {
+      const result = template.ast(
+        `export { default as foo2 } from "foo.json" assert { type: "json" };`,
+        {
+          plugins: ["importAssertions"],
+        },
+      );
+
+      expect(result.assertions[0].type).toBe("ImportAttribute");
+    });
+
+    it("should return assertions in ExportDefaultDeclaration when using .ast", () => {
+      const result = template.ast(
+        `export foo2 from "foo.json" assert { type: "json" };`,
+        {
+          plugins: ["importAssertions", "exportDefaultFrom"],
+        },
+      );
+
+      expect(result.assertions[0].type).toBe("ImportAttribute");
+    });
+
+    it("should return assertions in ExportAllDeclaration when using .ast", () => {
+      const result = template.ast(
+        `export * from "foo.json" assert { type: "json" };`,
+        {
+          plugins: ["importAssertions"],
+        },
+      );
+
+      expect(result.assertions[0].type).toBe("ImportAttribute");
+    });
+
     it("should replace JSX placeholder", () => {
       const result = template.expression(
         `
@@ -228,6 +270,64 @@ describe("@babel/template", function () {
       });
 
       expect(generator(result).code).toEqual("<div>{'content'}</div>");
+    });
+
+    it("should work with `export { x }`", () => {
+      const result = template.ast`
+        export { ${t.identifier("x")} }
+        $$$$BABEL_TPL$0;
+      `;
+      expect(result).toMatchInlineSnapshot(`
+        Array [
+          Object {
+            "declaration": null,
+            "loc": undefined,
+            "source": null,
+            "specifiers": Array [
+              Object {
+                "exported": Object {
+                  "name": "x",
+                  "type": "Identifier",
+                },
+                "loc": undefined,
+                "local": Object {
+                  "name": "x",
+                  "type": "Identifier",
+                },
+                "type": "ExportSpecifier",
+              },
+            ],
+            "type": "ExportNamedDeclaration",
+          },
+          Object {
+            "expression": Object {
+              "loc": undefined,
+              "name": "$$$$BABEL_TPL$0",
+              "type": "Identifier",
+            },
+            "loc": undefined,
+            "type": "ExpressionStatement",
+          },
+        ]
+      `);
+    });
+
+    it("should work with `const a = { x }`", () => {
+      const result = template.ast`
+        {
+          const a = { ${t.identifier("x")} };
+          $$$$BABEL_TPL$0;
+        }
+      `;
+
+      expect(generator(result).code).toMatchInlineSnapshot(`
+        "{
+          const a = {
+            x
+          };
+          $$$$BABEL_TPL$0;
+        }"
+      `);
     });
   });
 
@@ -348,6 +448,30 @@ describe("@babel/template", function () {
           expect(generator(output).code).toMatchInlineSnapshot(`"FOO + 1;"`);
         });
       });
+    });
+
+    it("works in var declaration", () => {
+      const output = template("var %%LHS%% = %%RHS%%")({
+        LHS: t.identifier("x"),
+        RHS: t.numericLiteral(7),
+      });
+      expect(generator(output).code).toMatchInlineSnapshot(`"var x = 7;"`);
+    });
+
+    it("works in const declaration", () => {
+      const output = template("const %%LHS%% = %%RHS%%")({
+        LHS: t.identifier("x"),
+        RHS: t.numericLiteral(7),
+      });
+      expect(generator(output).code).toMatchInlineSnapshot(`"const x = 7;"`);
+    });
+
+    it("works in let declaration", () => {
+      const output = template("let %%LHS%% = %%RHS%%")({
+        LHS: t.identifier("x"),
+        RHS: t.numericLiteral(7),
+      });
+      expect(generator(output).code).toMatchInlineSnapshot(`"let x = 7;"`);
     });
   });
 });

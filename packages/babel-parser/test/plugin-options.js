@@ -1,4 +1,5 @@
-import { parse } from "../lib";
+import { parse } from "../lib/index.js";
+import { itBabel8 } from "$repo-utils";
 
 function getParser(code, plugins) {
   return () => parse(code, { plugins, sourceType: "module" });
@@ -63,6 +64,15 @@ describe("plugin options", function () {
       expect(getParser(SYNTAX_2, [OPT_2, OPT_1])).not.toThrow();
       expect(getParser(SYNTAX_1, [OPT_2, OPT_1])).toThrow();
       expect(getParser(SYNTAX_2, [OPT_1, OPT_2])).toThrow();
+    });
+  });
+  describe("'moduleAttributes' plugin", () => {
+    itBabel8("removed in Babel 8", () => {
+      expect(
+        getParser("", ["moduleAttributes"]),
+      ).toThrowErrorMatchingInlineSnapshot(
+        `"\`moduleAttributes\` has been removed in Babel 8, please use \`importAttributes\` parser plugin, or \`@babel/plugin-syntax-import-attributes\`."`,
+      );
     });
   });
 });

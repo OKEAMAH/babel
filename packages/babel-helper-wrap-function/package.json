@@ -1,21 +1,54 @@
 {
   "name": "@babel/helper-wrap-function",
-  "version": "7.10.1",
+  "version": "7.24.5",
   "description": "Helper to wrap functions inside a function call.",
   "repository": {
     "type": "git",
     "url": "https://github.com/babel/babel.git",
     "directory": "packages/babel-helper-wrap-function"
   },
+  "homepage": "https://babel.dev/docs/en/next/babel-helper-wrap-function",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
   "dependencies": {
-    "@babel/helper-function-name": "^7.10.1",
-    "@babel/template": "^7.10.1",
-    "@babel/traverse": "^7.10.1",
-    "@babel/types": "^7.10.1"
-  }
+    "@babel/helper-function-name": "workspace:^",
+    "@babel/template": "workspace:^",
+    "@babel/types": "workspace:^"
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "devDependencies": {
+    "@babel/traverse": "workspace:^"
+  },
+  "author": "The Babel Team (https://babel.dev/team)",
+  "conditions": {
+    "BABEL_8_BREAKING": [
+      {
+        "engines": {
+          "node": "^18.20.0 || ^20.10.0 || >=21.0.0"
+        }
+      },
+      {
+        "exports": null
+      }
+    ],
+    "USE_ESM": [
+      {
+        "type": "module"
+      },
+      null
+    ]
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "type": "commonjs"
 }

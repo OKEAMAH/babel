@@ -1,0 +1,38 @@
+@babel/preset-env: `DEBUG` option
+
+Using targets:
+{
+  "android": "123",
+  "chrome": "109",
+  "edge": "122",
+  "firefox": "115",
+  "ios": "15.6",
+  "opera": "107",
+  "opera_mobile": "80",
+  "safari": "17.3",
+  "samsung": "23"
+}
+
+Using modules transform: auto
+
+Using plugins:
+  transform-unicode-sets-regex { chrome < 112, firefox < 116, ios, safari < tp, samsung }
+  bugfix/transform-firefox-class-in-computed-class-key { firefox }
+  transform-class-static-block { ios < 16.4 }
+  syntax-private-property-in-object
+  syntax-class-properties
+  syntax-numeric-separator
+  syntax-nullish-coalescing-operator
+  syntax-optional-chaining
+  syntax-json-strings
+  syntax-optional-catch-binding
+  transform-parameters { ios < 16.3 }
+  syntax-async-generators
+  syntax-object-rest-spread
+  transform-export-namespace-from { }
+  transform-modules-commonjs
+  transform-dynamic-import
+  syntax-top-level-await
+  syntax-import-meta
+
+Using polyfills: No polyfills were added, since the `useBuiltIns` option was not set.

@@ -5,44 +5,50 @@
  * This script write the link to the website in every READMEs.
  */
 
-const { join } = require("path");
-const { readdirSync, writeFileSync } = require("fs");
+import { join } from "path";
+import { readdirSync, writeFileSync } from "fs";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
 
 const cwd = process.cwd();
 
 const packageDir = join(cwd, "packages");
 
 const packages = readdirSync(packageDir);
-const packagesInstalledToDep = ["@babel/polyfill", "@babel/runtime"];
-const getWebsiteLink = n => `https://babeljs.io/docs/en/next/${n}.html`;
+
+const isDep = name =>
+  name.startsWith("@babel/runtime") ||
+  name.startsWith("@babel/helper-") ||
+  name === "@babel/compat-data";
+
+const getWebsiteLink = n => `https://babeljs.io/docs/${n}`;
 const getPackageJson = pkg => require(join(packageDir, pkg, "package.json"));
-const getIssueLabelLink = l =>
-  `https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22${encodeURIComponent(
+const getIssueLabelLink = l => {
+  if (!l) return "";
+  return `https://github.com/babel/babel/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3A%22${encodeURIComponent(
     l
   )}%22+is%3Aopen`;
+};
 const getNpmInstall = name =>
-  `npm install ${
-    packagesInstalledToDep.includes(name) ? "--save" : "--save-dev"
-  } ${name}`;
-const getYarnAdd = name =>
-  `yarn add ${name} ${packagesInstalledToDep.includes(name) ? "" : "--dev"}`;
+  `npm install ${isDep(name) ? "--save" : "--save-dev"} ${name}`;
+const getYarnAdd = name => `yarn add ${name}${isDep(name) ? "" : " --dev"}`;
 
 const labels = {
-  "babel-preset-flow": getIssueLabelLink("area: flow"),
-  "babel-preset-node": getIssueLabelLink("area: node"),
-  "babel-preset-react": getIssueLabelLink("area: react"),
-  "babel-preset-typescript": getIssueLabelLink("area: typescript"),
-  "babel-parser": getIssueLabelLink("pkg: parser (babylon)"),
-  "babel-cli": getIssueLabelLink("pkg: cli"),
-  "babel-core": getIssueLabelLink("pkg: core"),
-  "babel-generator": getIssueLabelLink("pkg: generator"),
-  "babel-polyfill": getIssueLabelLink("pkg: polyfill"),
-  "babel-preset-env": getIssueLabelLink("pkg: preset-env"),
-  "babel-register": getIssueLabelLink("pkg: register"),
-  "babel-template": getIssueLabelLink("pkg: template"),
-  "babel-traverse": getIssueLabelLink("pkg: traverse"),
-  "babel-types": getIssueLabelLink("pkg: types"),
-  "babel-standalone": getIssueLabelLink("pkg: standalone"),
+  "babel-preset-flow": "area: flow",
+  "babel-preset-node": "area: node",
+  "babel-preset-react": "area: react",
+  "babel-preset-typescript": "area: typescript",
+  "babel-parser": "pkg: parser",
+  "babel-cli": "pkg: cli",
+  "babel-core": "pkg: core",
+  "babel-generator": "pkg: generator",
+  "babel-preset-env": "pkg: preset-env",
+  "babel-register": "pkg: register",
+  "babel-template": "pkg: template",
+  "babel-traverse": "pkg: traverse",
+  "babel-types": "pkg: types",
+  "babel-standalone": "pkg: standalone",
 };
 
 const generateReadme = ({ websiteLink, issuesLink, name, description }) =>
@@ -73,24 +79,28 @@ ${getYarnAdd(name)}
 
 packages
   .filter(x => x !== "README.md") // ignore root readme
-  .filter(x => x.indexOf("babel-preset-stage-") === -1) // ignore stages
+  .filter(x => x.indexOf("babel-helper-check-duplicate-nodes") === -1) // ignore check-duplicate-nodes
   .forEach(id => {
-    const { name, description } = getPackageJson(id);
-    const readmePath = join(packageDir, id, "README.md");
+    try {
+      const { name, description } = getPackageJson(id);
+      const readmePath = join(packageDir, id, "README.md");
 
-    // generate
-    const websiteLink = getWebsiteLink(id);
-    const issuesLink = labels[id];
+      // generate
+      const websiteLink = getWebsiteLink(id);
+      const issuesLink = getIssueLabelLink(labels[id]);
 
-    const readme = generateReadme({
-      websiteLink,
-      issuesLink,
-      name,
-      description,
-    });
+      const readme = generateReadme({
+        websiteLink,
+        issuesLink,
+        name,
+        description,
+      });
 
-    // write
-    writeFileSync(readmePath, readme);
+      // write
+      writeFileSync(readmePath, readme);
 
-    console.log("OK", id);
+      console.log("OK", id);
+    } catch (e) {
+      console.error("ERR", id, e);
+    }
   });

@@ -1,9 +1,9 @@
 {
   "name": "@babel/node",
-  "version": "7.10.1",
+  "version": "7.23.9",
   "description": "Babel command line",
-  "author": "Sebastian McKenzie <sebmck@gmail.com>",
-  "homepage": "https://babeljs.io/",
+  "author": "The Babel Team (https://babel.dev/team)",
+  "homepage": "https://babel.dev/docs/en/next/babel-node",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
@@ -23,27 +23,53 @@
     "compiler"
   ],
   "dependencies": {
-    "@babel/register": "^7.10.1",
-    "commander": "^4.0.1",
-    "core-js": "^3.2.1",
-    "lodash": "^4.17.13",
-    "node-environment-flags": "^1.0.5",
-    "regenerator-runtime": "^0.13.4",
-    "resolve": "^1.13.1",
-    "v8flags": "^3.1.1"
+    "@babel/register": "workspace:^",
+    "commander": "^6.2.0",
+    "core-js": "^3.30.2",
+    "node-environment-flags": "condition:BABEL_8_BREAKING ? : ^1.0.5",
+    "regenerator-runtime": "^0.14.0",
+    "v8flags": "condition:BABEL_8_BREAKING ? ^4.0.0 : ^3.1.1"
   },
   "peerDependencies": {
     "@babel/core": "^7.0.0-0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.1",
-    "@babel/helper-fixtures": "^7.10.1",
-    "@babel/runtime": "^7.10.1",
-    "fs-readdir-recursive": "^1.0.0",
-    "make-dir": "^2.1.0",
-    "rimraf": "^3.0.0"
+    "@babel/core": "workspace:^",
+    "@babel/helper-transform-fixture-test-runner": "workspace:^",
+    "@babel/preset-env": "workspace:^",
+    "@babel/runtime": "workspace:^",
+    "@types/v8flags": "^3.1.1"
   },
   "bin": {
     "babel-node": "./bin/babel-node.js"
-  }
+  },
+  "engines": {
+    "node": ">=6.9.0"
+  },
+  "conditions": {
+    "BABEL_8_BREAKING": [
+      {
+        "engines": {
+          "node": "^18.20.0 || ^20.10.0 || >=21.0.0"
+        }
+      },
+      {
+        "exports": null
+      }
+    ],
+    "USE_ESM": [
+      {
+        "type": "module"
+      },
+      null
+    ]
+  },
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "type": "commonjs"
 }

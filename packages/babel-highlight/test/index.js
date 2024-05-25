@@ -1,17 +1,34 @@
-import chalk from "chalk";
+import { USE_ESM } from "$repo-utils";
+
 import stripAnsi from "strip-ansi";
-import highlight, { shouldHighlight, getChalk } from "..";
+import colors, { createColors } from "picocolors";
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
+import _highlight, { shouldHighlight } from "../lib/index.js";
+const highlight = _highlight.default || _highlight;
+
+const describeBabel7NoESM =
+  process.env.BABEL_8_BREAKING || USE_ESM ? describe.skip : describe;
 
 describe("@babel/highlight", function () {
   function stubColorSupport(supported) {
-    let originalSupportsColor;
+    let originalColorsCopy;
+
     beforeEach(function () {
-      originalSupportsColor = chalk.supportsColor;
-      chalk.supportsColor = supported;
+      if (supported === colors.isColorSupported) {
+        originalColorsCopy = null;
+      } else {
+        originalColorsCopy = { ...colors };
+        Object.assign(colors, createColors(supported));
+      }
     });
 
     afterEach(function () {
-      chalk.supportsColor = originalSupportsColor;
+      if (originalColorsCopy) {
+        Object.assign(colors, originalColorsCopy);
+      }
     });
   }
 
@@ -75,9 +92,32 @@ describe("@babel/highlight", function () {
     });
   });
 
-  describe("getChalk", function () {
+  describeBabel7NoESM("getChalk", function () {
+    let getChalk, chalk;
+    beforeAll(() => {
+      chalk = require("chalk");
+      ({ getChalk } = require("../lib/index.js"));
+    });
+
+    function stubChalkColorSupport(supported) {
+      let originalChalkLevel;
+      let originalChalkEnabled;
+
+      beforeEach(function () {
+        originalChalkLevel = chalk.level;
+        originalChalkEnabled = chalk.enabled;
+        chalk.level = supported ? 1 : 0;
+        chalk.enabled = supported;
+      });
+
+      afterEach(function () {
+        chalk.level = originalChalkLevel;
+        chalk.enabled = originalChalkEnabled;
+      });
+    }
+
     describe("when colors are supported", function () {
-      stubColorSupport(true);
+      stubChalkColorSupport(true);
 
       describe("when forceColor is not passed", function () {
         it("returns a Chalk instance", function () {
@@ -95,7 +135,7 @@ describe("@babel/highlight", function () {
     });
 
     describe("when colors are not supported", function () {
-      stubColorSupport(false);
+      stubChalkColorSupport(false);
 
       describe("when forceColor is not passed", function () {
         it("returns a Chalk instance", function () {
