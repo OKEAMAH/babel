@@ -18,7 +18,7 @@
     "@babel/code-frame": "workspace:^",
     "@babel/core": "workspace:^",
     "@babel/helper-check-duplicate-nodes": "7.17.9",
-    "@babel/helper-fixtures": "workspace:^",
+    "@babel/helper-fixtures": "7.0.0",
     "@jridgewell/trace-mapping": "^0.3.25",
     "fs-readdir-recursive": "^1.1.0",
     "jest-diff": "^29.6.4",
