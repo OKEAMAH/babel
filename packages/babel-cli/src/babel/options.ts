@@ -1,13 +1,15 @@
 import fs from "fs";
 
-import * as Commander from "commander";
+import * as commander from "commander";
 import { version, DEFAULT_EXTENSIONS } from "@babel/core";
 import * as glob from "glob";
 import { alphasort } from "./util.ts";
 
 import type { InputOptions } from "@babel/core";
 
-const program = Commander.default.program as Commander.Command;
+const program = process.env.BABEL_8_BREAKING
+  ? commander.program
+  : commander.default.program;
 
 // Standard Babel input configs.
 program.option(

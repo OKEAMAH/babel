@@ -1,6 +1,6 @@
 {
   "name": "@babel/helper-plugin-test-runner",
-  "version": "7.24.1",
+  "version": "7.24.7",
   "description": "Helper function to support test runner",
   "repository": {
     "type": "git",
@@ -55,11 +55,11 @@
       }
     ],
     "USE_ESM": [
+      null,
       {
-        "type": "module"
-      },
-      null
+        "type": "commonjs"
+      }
     ]
   },
-  "type": "commonjs"
+  "type": "module"
 }

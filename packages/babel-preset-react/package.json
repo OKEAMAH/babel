@@ -1,6 +1,6 @@
 {
   "name": "@babel/preset-react",
-  "version": "7.24.1",
+  "version": "7.24.7",
   "description": "Babel preset for all React plugins.",
   "author": "The Babel Team (https://babel.dev/team)",
   "homepage": "https://babel.dev/docs/en/next/babel-preset-react",
@@ -45,10 +45,10 @@
       }
     ],
     "USE_ESM": [
+      null,
       {
-        "type": "module"
-      },
-      null
+        "type": "commonjs"
+      }
     ]
   },
   "exports": {
@@ -58,5 +58,5 @@
     },
     "./package.json": "./package.json"
   },
-  "type": "commonjs"
+  "type": "module"
 }

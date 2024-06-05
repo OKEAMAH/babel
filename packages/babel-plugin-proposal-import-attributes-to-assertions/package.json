@@ -1,6 +1,6 @@
 {
   "name": "@babel/plugin-proposal-import-attributes-to-assertions",
-  "version": "7.24.1",
+  "version": "7.24.7",
   "description": "Transform the Import Attributes proposal (`import ... from '...' with { ... }`) to the previous version known as Import Assertions (`import ... from '...' assert { ... }`).",
   "repository": {
     "type": "git",
@@ -43,13 +43,13 @@
     "node": ">=6.9.0"
   },
   "author": "The Babel Team (https://babel.dev/team)",
-  "type": "commonjs",
+  "type": "module",
   "conditions": {
     "USE_ESM": [
+      null,
       {
-        "type": "module"
-      },
-      null
+        "type": "commonjs"
+      }
     ],
     "BABEL_8_BREAKING": [
       {

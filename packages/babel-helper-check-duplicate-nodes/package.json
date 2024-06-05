@@ -1,6 +1,6 @@
 {
   "name": "@babel/helper-check-duplicate-nodes",
-  "version": "7.22.5",
+  "version": "7.24.7",
   "description": "Babel helper module for babel transforms authors to check the AST against duplicated nodes.",
   "main": "./lib/index.js",
   "exports": {
@@ -36,13 +36,13 @@
   "devDependencies": {
     "@babel/core": "workspace:^"
   },
-  "type": "commonjs",
+  "type": "module",
   "conditions": {
     "USE_ESM": [
+      null,
       {
-        "type": "module"
-      },
-      null
+        "type": "commonjs"
+      }
     ],
     "BABEL_8_BREAKING": [
       {

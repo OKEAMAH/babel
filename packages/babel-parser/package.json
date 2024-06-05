@@ -1,6 +1,6 @@
 {
   "name": "@babel/parser",
-  "version": "7.24.5",
+  "version": "7.24.7",
   "description": "A JavaScript parser",
   "author": "The Babel Team (https://babel.dev/team)",
   "homepage": "https://babel.dev/docs/en/next/babel-parser",
@@ -56,7 +56,6 @@
     ],
     "USE_ESM": [
       {
-        "type": "module",
         "exports": {
           ".": {
             "require": "./lib/index.cjs",
@@ -65,7 +64,9 @@
           "./package.json": "./package.json"
         }
       },
-      null
+      {
+        "type": "commonjs"
+      }
     ]
   },
   "exports": {
@@ -75,5 +76,5 @@
     },
     "./package.json": "./package.json"
   },
-  "type": "commonjs"
+  "type": "module"
 }

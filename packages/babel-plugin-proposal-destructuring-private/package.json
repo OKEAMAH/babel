@@ -1,6 +1,6 @@
 {
   "name": "@babel/plugin-proposal-destructuring-private",
-  "version": "7.24.1",
+  "version": "7.24.7",
   "description": "Transform destructuring private proposal",
   "repository": {
     "type": "git",
@@ -42,13 +42,13 @@
     },
     "./package.json": "./package.json"
   },
-  "type": "commonjs",
+  "type": "module",
   "conditions": {
     "USE_ESM": [
+      null,
       {
-        "type": "module"
-      },
-      null
+        "type": "commonjs"
+      }
     ],
     "BABEL_8_BREAKING": [
       {

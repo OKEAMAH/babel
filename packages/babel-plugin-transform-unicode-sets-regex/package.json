@@ -1,6 +1,6 @@
 {
   "name": "@babel/plugin-transform-unicode-sets-regex",
-  "version": "7.24.1",
+  "version": "7.24.7",
   "description": "Compile regular expressions' unicodeSets (v) flag.",
   "homepage": "https://babel.dev/docs/en/next/babel-plugin-transform-unicode-sets-regex",
   "license": "MIT",
@@ -48,13 +48,13 @@
   "engines": {
     "node": ">=6.9.0"
   },
-  "type": "commonjs",
+  "type": "module",
   "conditions": {
     "USE_ESM": [
+      null,
       {
-        "type": "module"
-      },
-      null
+        "type": "commonjs"
+      }
     ],
     "BABEL_8_BREAKING": [
       {
