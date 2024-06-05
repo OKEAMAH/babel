@@ -14,9 +14,9 @@
   },
   "main": "./lib/index.js",
   "dependencies": {
-    "@babel/helper-function-name": "workspace:^",
+    "@babel/helper-function-name": "7.0.0",
     "@babel/template": "workspace:^",
-    "@babel/types": "workspace:^"
+    "@babel/types": "7.0.0"
   },
   "engines": {
     "node": ">=6.9.0"
