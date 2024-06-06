@@ -15,7 +15,7 @@
   "main": "./lib/index.js",
   "dependencies": {
     "@babel/helper-environment-visitor": "workspace:^",
-    "@babel/helper-member-expression-to-functions": "workspace:^",
+    "@babel/helper-member-expression-to-functions": "7.0.0",
     "@babel/helper-optimise-call-expression": "7.0.0"
   },
   "devDependencies": {
