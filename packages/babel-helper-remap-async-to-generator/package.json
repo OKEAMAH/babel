@@ -16,7 +16,7 @@
   "dependencies": {
     "@babel/helper-annotate-as-pure": "workspace:^",
     "@babel/helper-environment-visitor": "workspace:^",
-    "@babel/helper-wrap-function": "workspace:^"
+    "@babel/helper-wrap-function": "7.0.0"
   },
   "devDependencies": {
     "@babel/core": "workspace:^",
