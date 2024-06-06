@@ -25,7 +25,7 @@
     "@babel/helper-optimise-call-expression": "7.0.0",
     "@babel/helper-replace-supers": "7.0.0",
     "@babel/helper-skip-transparent-expression-wrappers": "workspace:^",
-    "@babel/helper-split-export-declaration": "workspace:^",
+    "@babel/helper-split-export-declaration": "7.0.0",
     "semver": "condition:BABEL_8_BREAKING ? ^7.3.4 : ^6.3.1"
   },
   "peerDependencies": {
