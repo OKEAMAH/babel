@@ -24,7 +24,7 @@
     "@babel/helper-member-expression-to-functions": "7.0.0",
     "@babel/helper-optimise-call-expression": "7.0.0",
     "@babel/helper-replace-supers": "7.0.0",
-    "@babel/helper-skip-transparent-expression-wrappers": "workspace:^",
+    "@babel/helper-skip-transparent-expression-wrappers": "7.11.0",
     "@babel/helper-split-export-declaration": "workspace:^",
     "semver": "condition:BABEL_8_BREAKING ? ^7.3.4 : ^6.3.1"
   },
