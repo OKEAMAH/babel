@@ -19,7 +19,7 @@
   "dependencies": {
     "@babel/helper-annotate-as-pure": "workspace:^",
     "@babel/helper-module-imports": "workspace:^",
-    "@babel/helper-plugin-utils": "workspace:^",
+    "@babel/helper-plugin-utils": "7.0.0",
     "@babel/plugin-syntax-jsx": "7.0.0",
     "@babel/types": "7.0.0"
   },
