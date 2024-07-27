@@ -19,7 +19,7 @@
   "dependencies": {
     "@babel/helper-environment-visitor": "workspace:^",
     "@babel/helper-plugin-utils": "workspace:^",
-    "@babel/helper-remap-async-to-generator": "workspace:^",
+    "@babel/helper-remap-async-to-generator": "7.0.0",
     "@babel/plugin-syntax-async-generators": "condition:BABEL_8_BREAKING ? : ^7.8.4"
   },
   "peerDependencies": {
